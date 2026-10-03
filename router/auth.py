@@ -41,6 +41,7 @@ ALGORITHM = "HS256"
 
 class CreateUsers(BaseModel):
     email: str
+    img_url: str
     username: str
     firstname: str
     lastname: str
@@ -50,6 +51,7 @@ class CreateUsers(BaseModel):
 
 class UpdateUser(BaseModel):
     email: Optional[str] = None
+    img_url: Optional[str] = None
     username: Optional[str] = None
     firstname: Optional[str] = None
     lastname: Optional[str] = None
@@ -117,6 +119,7 @@ def get_current_user(token: Annotated[str, Depends(OAuth2_bearer)]):
 def createuser(db: db_dependency, new_user: CreateUsers):
     user_model = Users(
         email = new_user.email,
+        img_url = new_user.img_url,
         username = new_user.username,
         firstname = new_user.firstname,
         lastname = new_user.lastname,
@@ -193,6 +196,7 @@ def get_current_user_data(
 
     return {
         "id": current_user.id,
+        "img_url": current_user.img_url,
         "email": current_user.email,
         "username": current_user.username,
         "firstname": current_user.firstname,
